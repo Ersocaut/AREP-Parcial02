@@ -33,12 +33,26 @@ public class Proxy {
         }return 4567;
     }
 
+    static String server1(){
+        if (System.getenv("SERVER1") != null) {
+            return System.getenv("SERVER1").toString();
+        }return "http://localhost:4567";
+    }
+
+    static String server2(){
+        if (System.getenv("SERVER2") != null) {
+            return System.getenv("SERVER2").toString();
+        }return "http://localhost:1234";
+    }
+
     static String getServer(String op, double value) throws IOException {
         ArrayList<String> servers = new ArrayList<>();
-        servers.add("http://3.89.221.148:32000");
-        servers.add("http://3.92.25.81:35000");
+        servers.add(server1());
+        servers.add(server2());
+        //servers.add("http://localhost:4567");
+        //servers.add("http://localhost:1234");
         ind++;
-        if (ind > servers.size()) {
+        if (ind >= servers.size() - 1) {
             ind = 0;
         }
         String ret = "";
@@ -63,6 +77,7 @@ public class Proxy {
         } else {
             System.out.println("GET request not worked");
         }
+        System.out.println(ret);
         return ret;
     }
 }
